@@ -1,0 +1,280 @@
+Atividade 04_Bancos de Dados 2_BD2A3
+Pedro Haka_SP3047032
+
+-Exercicio 01--> Criar um banco de dados de uma clínica e popular suas tabelas, conforme proposto no slide da atividade:
+
+create database if not exists clinica
+
+default character set utf8mb4 collate utf8mb4_general_ci;
+
+use clinica;
+
+
+
+create table if not exists ambulatorios (
+	
+	numero_ambulatorio int unsigned not null auto_increment,
+    
+	andar int unsigned not null,
+    
+	capacidade smallint unsigned not null,
+    
+	primary key(numero_ambulatorio)
+
+)Engine = InnoDB;
+
+
+
+create table if not exists medicos (
+	
+	codigo_medico int unsigned not null auto_increment,
+
+    	nome varchar(50) not null,
+    
+	idade smallint unsigned not null,
+    
+	especialidade varchar(50) not null,
+    
+	cpf varchar(11) unique not null,
+    
+	cidade varchar(50) not null,
+    
+	numero_ambulatorio int unsigned,
+    
+	primary key(codigo_medico),
+    
+	constraint fk_numero_ambulatorio
+		
+		foreign key(numero_ambulatorio) 
+		references ambulatorios (numero_ambulatorio)
+        
+		on delete set null
+        
+		on update no action
+
+)Engine = InnoDB;
+
+
+
+create table if not exists pacientes (
+	
+	codigo_paciente int unsigned not null auto_increment,
+    
+	nome varchar(50) not null,
+    
+	idade smallint unsigned,
+    
+	cidade varchar(50) not null,
+    
+	cpf varchar(11) unique not null,
+    
+	doenca varchar(50) not null,
+    
+	primary key(codigo_paciente)
+
+)Engine = InnoDB;
+
+
+
+create table if not exists funcionarios (
+	
+	codigo_funcionario int unsigned not null auto_increment,
+    
+	nome varchar(50) not null,
+    
+	idade smallint unsigned not null,
+    
+	cpf varchar(11) unique not null,
+    
+	cidade varchar(50) not null,
+    
+	salario numeric(10) not null,
+    
+	primary key(codigo_funcionario)
+
+)Engine = InnoDB;
+
+
+
+create table if not exists consultas (
+	
+	data_consulta date not null,
+    
+	hora time not null,
+    
+	codigo_medico int unsigned,
+    
+	codigo_paciente int unsigned,
+    
+	primary key(data_consulta, hora, codigo_medico),
+    
+	constraint fk_codigo_medico
+		
+		foreign key (codigo_medico) 
+		references medicos (codigo_medico)
+        
+		on update cascade
+        
+		on delete cascade,
+	
+	constraint fk_codigo_pacente
+		
+		foreign key (codigo_paciente) 
+		references pacientes (codigo_paciente)
+		
+		on update cascade
+		
+		on delete cascade
+
+)Engine = InnoDB;
+
+
+
+INSERT INTO ambulatorios (andar, capacidade) VALUES(1, 30);
+
+INSERT INTO ambulatorios (andar, capacidade) VALUES(1, 50);
+
+INSERT INTO ambulatorios (andar, capacidade) VALUES(2, 40);
+
+INSERT INTO ambulatorios (andar, capacidade) VALUES(2, 25);
+
+INSERT INTO ambulatorios (andar, capacidade) VALUES(2, 55);
+
+
+
+INSERT INTO medicos (numero_ambulatorio, nome, idade, especialidade, CPF, cidade) 
+VALUES(1,'João',40,'ortopedia', 10000100000, 'Florianópolis');
+
+INSERT INTO medicos (numero_ambulatorio,nome,idade,especialidade,CPF,cidade) 
+VALUES(2,'Maria',42,'traumatologia', 10000110000, 'Blumenau');
+
+INSERT INTO medicos (numero_ambulatorio,nome,idade,especialidade,CPF,cidade) 
+VALUES(2,'Pedro',51,'pediatria', 11000100000, 'São José');
+
+INSERT INTO medicos (numero_ambulatorio,nome,idade,especialidade,CPF,cidade) 
+VALUES(3,'Carlos',28,'ortopedia', 11000110000, 'Joinville');
+
+INSERT INTO medicos (numero_ambulatorio,nome,idade,especialidade,CPF,cidade) 
+VALUES(3,'Marcia',33,'neurologia', 11000111000, 'Biguaçu');
+
+
+
+INSERT INTO pacientes (nome, idade, cidade, cpf, doenca)
+VALUES('Ana', 20, 'Florianópolis', 20000200000, 'gripe');
+
+INSERT INTO pacientes (nome, idade, cidade, cpf, doenca)
+VALUES('Paulo', 24, 'Palhoca', 20000220000, 'fratura');
+
+INSERT INTO pacientes (nome, idade, cidade, cpf, doenca)
+VALUES('Lucia', 30, 'Biguaçu', 22000200000, 'tendinite');
+
+INSERT INTO pacientes (nome, idade, cidade, cpf, doenca)
+VALUES('Carlos', 28, 'Joinville', 11000110000, 'sarampo');
+
+
+
+INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
+VALUES('Rita', 32, 20000100000, 'São José', 1200);
+
+INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
+VALUES('Maria', 55, 30000110000, 'Palhoca', 1220);
+
+INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
+VALUES('Caio', 45, 41000100000, 'Florianópolis', 1100);
+
+INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
+VALUES('Carlos', 44, 51000110000, 'Florianópolis', 1200);
+
+INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
+VALUES('Paula', 33, 61000111000, 'Florianópolis', 2500);
+
+
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/12", "14:00", 1, 1);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/13", "10:00", 1, 4);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/13", "09:00", 2, 1);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/13", "11:00", 2, 2);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/14", "14:00", 2, 3);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/14", "17:00", 2, 4);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/19", "18:00", 3, 1);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/12", "10:00", 3, 3);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/19", "13:00", 3, 4);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/20", "13:00", 4, 4);
+
+INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
+VALUES("2006/06/22", "19:30", 4, 4);
+
+
+
+# Relatório dos dados
+
+select * from ambulatorios;
+
+select * from medicos;
+
+select * from pacientes;
+
+select * from funcionarios;
+
+select * from consultas;
+
+===========================================================================================================================
+
+-Exercício 02--> Manter o banco de dados, atualizando e/ou deletando os dados conforme proposto no slide da atividade:
+
+SET SQL_SAFE_UPDATES = 0;
+
+
+update pacientes set cidade = 'Ilhotas' where nome = 'Paulo';
+
+update consultas set data_consulta = "2006/07/04", hora = "12:00" 
+	
+	where codigo_medico = '1' && codigo_paciente = '4';
+
+update pacientes set idade = '21', doenca = "Câncer" 
+	where nome = "Ana";
+
+update consultas set hora = "14:30" 
+	where codigo_medico = '3' && codigo_paciente = '4';
+
+delete from funcionarios where codigo_funcionario = '4';
+
+delete from consultas where hora >= "19:00";
+
+delete from pacientes 
+where idade < '10' || doenca = "Câncer";
+
+delete from medicos where cidade = "Biguaçu" || cidade = "Palhoca";
+
+
+
+
+# Relatório atualizado dos dados
+select * from ambulatorios;
+
+select * from medicos;
+
+select * from pacientes;
+
+select * from funcionarios;
+
+select * from consultas;
