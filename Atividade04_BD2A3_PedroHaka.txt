@@ -1,7 +1,7 @@
 Atividade 04_Bancos de Dados 2_BD2A3
 Pedro Haka_SP3047032
 
--Exercicio 01--> Criar um banco de dados de uma clínica e popular suas tabelas, conforme proposto no slide da atividade:
+-Exercicio 01--> Criar um banco de dados de uma clÃ­nica e popular suas tabelas, conforme proposto no slide da atividade:
 
 create database if not exists clinica
 
@@ -68,7 +68,7 @@ create table if not exists pacientes (
     
 	cpf varchar(11) unique not null,
     
-	doenca varchar(50) not null,
+	condicao varchar(50) not null,
     
 	primary key(codigo_paciente)
 
@@ -143,50 +143,50 @@ INSERT INTO ambulatorios (andar, capacidade) VALUES(2, 55);
 
 
 INSERT INTO medicos (numero_ambulatorio, nome, idade, especialidade, CPF, cidade) 
-VALUES(1,'João',40,'ortopedia', 10000100000, 'Florianópolis');
+VALUES(1,'JoÃ£o',40,'ortopedia', 10000100000, 'FlorianÃ³polis');
 
 INSERT INTO medicos (numero_ambulatorio,nome,idade,especialidade,CPF,cidade) 
 VALUES(2,'Maria',42,'traumatologia', 10000110000, 'Blumenau');
 
 INSERT INTO medicos (numero_ambulatorio,nome,idade,especialidade,CPF,cidade) 
-VALUES(2,'Pedro',51,'pediatria', 11000100000, 'São José');
+VALUES(2,'Pedro',51,'pediatria', 11000100000, 'SÃ£o JosÃ©');
 
 INSERT INTO medicos (numero_ambulatorio,nome,idade,especialidade,CPF,cidade) 
 VALUES(3,'Carlos',28,'ortopedia', 11000110000, 'Joinville');
 
 INSERT INTO medicos (numero_ambulatorio,nome,idade,especialidade,CPF,cidade) 
-VALUES(3,'Marcia',33,'neurologia', 11000111000, 'Biguaçu');
+VALUES(3,'Marcia',33,'neurologia', 11000111000, 'BiguaÃ§u');
 
 
 
-INSERT INTO pacientes (nome, idade, cidade, cpf, doenca)
-VALUES('Ana', 20, 'Florianópolis', 20000200000, 'gripe');
+INSERT INTO pacientes (nome, idade, cidade, cpf, condicao)
+VALUES('Ana', 20, 'FlorianÃ³polis', 20000200000, 'gripe');
 
-INSERT INTO pacientes (nome, idade, cidade, cpf, doenca)
+INSERT INTO pacientes (nome, idade, cidade, cpf, condicao)
 VALUES('Paulo', 24, 'Palhoca', 20000220000, 'fratura');
 
-INSERT INTO pacientes (nome, idade, cidade, cpf, doenca)
-VALUES('Lucia', 30, 'Biguaçu', 22000200000, 'tendinite');
+INSERT INTO pacientes (nome, idade, cidade, cpf, condicao)
+VALUES('Lucia', 30, 'BiguaÃ§u', 22000200000, 'tendinite');
 
-INSERT INTO pacientes (nome, idade, cidade, cpf, doenca)
+INSERT INTO pacientes (nome, idade, cidade, cpf, condicao)
 VALUES('Carlos', 28, 'Joinville', 11000110000, 'sarampo');
 
 
 
 INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
-VALUES('Rita', 32, 20000100000, 'São José', 1200);
+VALUES('Rita', 32, 20000100000, 'SÃ£o JosÃ©', 1200);
 
 INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
 VALUES('Maria', 55, 30000110000, 'Palhoca', 1220);
 
 INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
-VALUES('Caio', 45, 41000100000, 'Florianópolis', 1100);
+VALUES('Caio', 45, 41000100000, 'FlorianÃ³polis', 1100);
 
 INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
-VALUES('Carlos', 44, 51000110000, 'Florianópolis', 1200);
+VALUES('Carlos', 44, 51000110000, 'FlorianÃ³polis', 1200);
 
 INSERT INTO funcionarios (nome, idade, cpf, cidade, salario)
-VALUES('Paula', 33, 61000111000, 'Florianópolis', 2500);
+VALUES('Paula', 33, 61000111000, 'FlorianÃ³polis', 2500);
 
 
 
@@ -225,7 +225,7 @@ VALUES("2006/06/22", "19:30", 4, 4);
 
 
 
-# Relatório dos dados
+# RelatÃ³rio dos dados
 
 select * from ambulatorios;
 
@@ -239,7 +239,7 @@ select * from consultas;
 
 ===========================================================================================================================
 
--Exercício 02--> Manter o banco de dados, atualizando e/ou deletando os dados conforme proposto no slide da atividade:
+-ExercÃ­cio 02--> Manter o banco de dados, atualizando e/ou deletando os dados conforme proposto no slide da atividade:
 
 SET SQL_SAFE_UPDATES = 0;
 
@@ -250,7 +250,7 @@ update consultas set data_consulta = "2006/07/04", hora = "12:00"
 	
 	where codigo_medico = '1' && codigo_paciente = '4';
 
-update pacientes set idade = '21', doenca = "Câncer" 
+update pacientes set idade = '21', condicao = "CÃ¢ncer" 
 	where nome = "Ana";
 
 update consultas set hora = "14:30" 
@@ -261,14 +261,14 @@ delete from funcionarios where codigo_funcionario = '4';
 delete from consultas where hora >= "19:00";
 
 delete from pacientes 
-where idade < '10' || doenca = "Câncer";
+where idade < '10' || condicao = "CÃ¢ncer";
 
-delete from medicos where cidade = "Biguaçu" || cidade = "Palhoca";
-
-
+delete from medicos where cidade = "BiguaÃ§u" || cidade = "Palhoca";
 
 
-# Relatório atualizado dos dados
+
+
+# RelatÃ³rio atualizado dos dados
 select * from ambulatorios;
 
 select * from medicos;
