@@ -1,7 +1,13 @@
 Atividade 04_Bancos de Dados 2_BD2A3
 Pedro Haka_SP3047032
 
+===========================================================================================================================
+
 -Exercicio 01--> Criar um banco de dados de uma clínica e popular suas tabelas, conforme proposto no slide da atividade:
+
+------
+# CRIAÇÃO DA BASE DE DADOS 'clinica'
+------
 
 create database if not exists clinica
 
@@ -10,6 +16,9 @@ default character set utf8mb4 collate utf8mb4_general_ci;
 use clinica;
 
 
+------
+# CRIAÇÃO DAS TABELAS CONFORME MODELO FÍSICO DE DADOS
+------
 
 create table if not exists ambulatorios (
 	
@@ -129,6 +138,9 @@ create table if not exists consultas (
 )Engine = InnoDB;
 
 
+------
+# POPULAÇÃO DAS TABELAS CRIADAS ACIMA COM FORMATOS DE DADOS ADEQUADOS
+------
 
 INSERT INTO ambulatorios (andar, capacidade) VALUES(1, 30);
 
@@ -224,8 +236,9 @@ INSERT INTO consultas (data_consulta, hora, codigo_medico, codigo_paciente)
 VALUES("2006/06/22", "19:30", 4, 4);
 
 
-
-# Relatório dos dados
+------
+# RELATÓRIOS DOS DADOS INSERIDOS NAS TABELAS ATÉ AQUI
+------
 
 select * from ambulatorios;
 
@@ -241,8 +254,16 @@ select * from consultas;
 
 -Exercício 02--> Manter o banco de dados, atualizando e/ou deletando os dados conforme proposto no slide da atividade:
 
+------
+# INICIANDO COM TRATATIVA DE UPDATE SEGURO, IMPEDE DIVERSAS DORES DE CABEÇA QUANDO SE TRABALHA COM UPDATES
+------
+
 SET SQL_SAFE_UPDATES = 0;
 
+
+------
+# UPDATE/DELETE EM TABELAS CRIADAS E POPULADAS NO EXERCÍCIO ANTERIOR
+------
 
 update pacientes set cidade = 'Ilhotas' where nome = 'Paulo';
 
@@ -267,8 +288,10 @@ delete from medicos where cidade = "Biguaçu" || cidade = "Palhoca";
 
 
 
+------
+# RELATÓRIO DOS DADOS ATUALIZADOS APÓS MANUTENÇÃO DO SISTEMA
+------
 
-# Relatório atualizado dos dados
 select * from ambulatorios;
 
 select * from medicos;
